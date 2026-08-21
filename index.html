@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="ko">
+<head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>Stage 1 Prototype</title><link rel="stylesheet" href="style.css" /></head>
+<body><main class="game-frame"><header><div><p>STAGE 01 · PROTOTYPE</p></div><div class="controls" aria-label="조작법"><span><kbd>A</kbd><kbd>D</kbd> 이동</span><span><kbd>SPACE</kbd> 점프</span><span><kbd>CLICK</kbd> 검 공격</span><span><kbd>TAB</kbd> 인벤토리</span></div></header><div class="canvas-wrap"><canvas id="game" width="1280" height="720" aria-label="2D 게임 화면"></canvas><div id="message" class="message">A / D로 움직이고, SPACE로 점프하세요.<br>마우스 왼쪽 버튼으로 검을 휘두릅니다.</div></div></main>
+<section id="inventory" class="inventory-overlay" aria-hidden="true">
+  <div class="inventory-window" role="dialog" aria-modal="true" aria-label="인벤토리">
+    <header class="inventory-header"><div><p>INVENTORY</p><h2>소지품과 잔흔</h2></div><button id="close-inventory" type="button" aria-label="인벤토리 닫기">×</button></header>
+    <div class="inventory-layout">
+      <section class="inventory-bag"><div class="player-summary"><div class="portrait">✦</div><div><strong>방랑자</strong><div class="stat"><i></i><span>체력</span></div><div class="stat mana"><i></i><span>기력</span></div><small>소지금&nbsp; <b>0</b></small></div></div><div class="section-label"><span>보유한 잔흔</span><small id="bag-count">0 / 12</small></div><div id="bag-slots" class="bag-slots" aria-label="보유 아이템"></div><p class="page-mark">‹&nbsp; 1 / 1 &nbsp;›</p></section>
+      <section class="equipment-area"><div class="section-label"><span>장착 보드</span><small>4 SLOTS</small></div><div id="equipment-board" class="equipment-board" aria-label="장착 아이템"></div><p class="equip-note">아이템을 이곳으로 드래그해 장착</p></section>
+      <aside class="item-detail"><p class="section-label"><span>잔흔 정보</span></p><div id="detail-icon" class="detail-icon">◇</div><h3 id="detail-name">아이템을 선택하세요</h3><p id="detail-text">보유한 아이템을 누르면 간단한 정보를 볼 수 있습니다. 현재 테스트 아이템에는 능력 효과가 없습니다.</p><div class="future-note"><span>SYNERGY</span><p>같은 계열의 잔흔을 장착하면 이후 시너지 효과가 표시됩니다.</p></div></aside>
+    </div>
+    <footer><span><kbd>TAB</kbd> 닫기</span><span>드래그하여 장착 · 빈 칸으로 드래그하여 해제</span></footer>
+  </div>
+</section><script src="game.js"></script></body>
+</html>
