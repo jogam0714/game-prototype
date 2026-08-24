@@ -7,7 +7,7 @@ const BASE_DAMAGE=10;
 const enemies=[{type:"training-dummy",name:"훈련용 허수아비",x:830,y:468,w:48,h:100,hp:100,maxHp:100,dead:false,respawnAt:0,lastDamagedAt:null}];
 const damageNumbers=[];
 const projectiles=[];
-const inventory={bag:[{name:"붉은 잔흔",glyph:"◈",color:"#d8787e"},{name:"금빛 잔흔",glyph:"◆",color:"#e4be69"},{name:"푸른 잔흔",glyph:"✦",color:"#75a9d5"},{name:"이끼 낀 잔흔",glyph:"✧",color:"#8bb982"},{name:"흐린 잔흔",glyph:"◇",color:"#b5a5cb"},{name:"그림자 잔흔",glyph:"◐",color:"#9da6b7"},null,null,null,null,null,null],equipped:[null,null,null,null],gear:[{name:"낡은 휘장",glyph:"✥",color:"#c89f66"},{name:"수호자의 끈",glyph:"⌬",color:"#82a8c9"},{name:"심연의 부적",glyph:"◉",color:"#aa83bd"},null,null,null,null,null,null,null]};
+const inventory={bag:[null,null,null,null,null,null,null,null,null,null,null,null],equipped:[null,null,null,null],gear:[null,null,null,null,null,null,null,null,null,null]};
 const inventoryEl=document.getElementById("inventory"),bagSlots=document.getElementById("bag-slots"),board=document.getElementById("equipment-board"),gearSlots=document.getElementById("gear-slots");
 const platforms=[{x:0,y:568,w:2800,h:180,oneWay:false},{x:620,y:470,w:170,h:26,oneWay:true},{x:960,y:410,w:180,h:26,oneWay:true},{x:1510,y:490,w:210,h:26,oneWay:true},{x:1960,y:430,w:160,h:26,oneWay:true}];
 const tutorialPlatforms=[{x:0,y:568,w:350,h:180,oneWay:false},{x:490,y:568,w:135,h:180,oneWay:false},{x:625,y:405,w:1180,h:343,oneWay:false}];
