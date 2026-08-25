@@ -20,7 +20,7 @@ const EQUIPMENT_CATALOG=[
   {id:"rusted-coin",grade:"고급",name:"녹슨 동전",icon:"coin",color:"#b986e9",effect:"피해 시 60% -50% · 39% +50% · 1% +100% · +100% 10회 발동 시 도박왕의 부적으로 변환",trait:{type:"gamble-damage",outcomes:[{chance:.6,damage:.5},{chance:.39,damage:1.5},{chance:.01,damage:2}],transformAt:10,transformTo:"gambling-king-charm"}},
   {id:"unknown-grimoire",grade:"고급",name:"아무도 모르는 고서",icon:"grimoire",color:"#b986e9",effect:"맵에 적이 1명일 때 마법 피해 +70%",trait:{type:"solo-magic",damage:1.7}},
   {id:"focus-elixir",grade:"고급",name:"몰입의 비약",icon:"elixir",color:"#b986e9",effect:"기본공격 시 2초간 공격속도 +5% (최대 +80%) · 재발동 시 지속시간 초기화",trait:{type:"stacking-attack-speed",perStack:.05,maxStacks:16,duration:2}},
-  {id:"space-expansion",grade:"고급",name:"공간 전개",icon:"rift",color:"#b986e9",effect:"대시 거리 +50%",trait:{type:"dash-distance",distance:1.5}},
+  {id:"space-expansion",grade:"고급",name:"공간 접개",icon:"rift",color:"#b986e9",effect:"대시 거리 +50%",trait:{type:"dash-distance",distance:1.5}},
   {id:"gambling-king-charm",grade:"신화",name:"도박왕의 부적",icon:"charm",color:"#eb5b5f",effect:"적에게 피해를 입힐 시 피해량 +50~100%",trait:{type:"random-bonus-damage",minBonus:.5,maxBonus:1,source:"rusted-coin"},onlyTransformation:true},
   {id:"proof-of-wealth",grade:"전설",name:"부유함의 증거",icon:"wealth",color:"#efc96a",effect:"맵 입장 시 현재 체력만큼 골드 획득",trait:{type:"map-entry-gold",amount:"current-hp"}},
   {id:"bloody-barbed-wire",grade:"전설",name:"피묻은 철조망",icon:"barbed",color:"#efc96a",effect:"보호막 보유 중 적 접촉 시 보호막량만큼 피해 (재사용 1.5초)",trait:{type:"shield-contact-damage",cooldown:1.5,damage:"shield"}},
