@@ -32,6 +32,10 @@
       api.player.gold=2000;api.player.hp=1;assert(api.shopUseWell(),"상점 우물 사용 실패");assertNear(api.player.hp,106,"상점 우물 회복량");const goldAfterWell=api.player.gold;assert(api.shopBuy(0),"상점 장비 구매 실패");shop=api.shopState();assert(shop.offers[0].sold,"구매 장비 판매 완료 표기 실패");assert(api.inventory.gear.some(item=>item?.id===shop.offers[0].id),"구매 장비 인벤토리 반영 실패");const beforeReroll=shop.offers.map(offer=>offer.id);assert(api.shopReroll(),"상점 리롤 실패");shop=api.shopState();assert(shop.rerolls===1,"상점 리롤 횟수 불일치");assert(shop.offers.length===5&&new Set(shop.offers.map(offer=>offer.id)).size===5,"리롤 진열 중복");assert(api.player.gold<goldAfterWell,"상점 구매·리롤 골드 차감 실패");
     });
 
+    test(pass,"변형된 오크 보스: 2페이즈와 전투 패턴",()=>{
+      api.enterBoss();let state=api.bossState();assert(state.active&&state.boss.hp===500&&state.boss.phase===1,"보스맵 또는 보스 체력 초기화 실패");api.step(5.6);state=api.bossState();assert(state.boss.state==="idle","보스 조우 대사 종료 후 전투 시작 실패");assert(api.bossAction("dash"),"보스 돌진 시작 실패");api.step(.72);state=api.bossState();assert(state.boss.state==="dash","보스 돌진 실행 실패");api.bossAction("rock");api.step(.75);assert(api.bossState().missiles.length===1,"보스 바위 투척 생성 실패");api.hit(api.enemies.find(enemy=>enemy.boss),250,false,"magic");api.step(.01);state=api.bossState();assert(state.boss.phase===2&&state.boss.state==="phase-two","보스 2페이즈 전환 실패");api.step(4.9);assert(api.bossAction("leap"),"2페이즈 낙하 공격 시작 실패");api.step(.8);assert(api.bossState().boss.state==="leap","2페이즈 낙하 공격 실행 실패");api.bossAction("grab");api.step(.75);assert(api.bossState().boss.state==="grab","2페이즈 붙잡기 공격 실행 실패");api.hit(api.enemies.find(enemy=>enemy.boss),1000,false,"magic");api.step(4);state=api.bossState();assert(state.completed&&state.boss.dead,"보스 처치 완료 또는 재생성 방지 실패");
+    });
+
     test(pass,"잔흔 후보 중복/장착 잔흔 제외",()=>{
       api.equipRelics(["pull"]);Math.random=seededRandom(300+pass);const choices=[];for(let i=0;i<3;i++)choices.push(api.rollRelic(choices.map(choice=>choice.id)));
       assert(choices.every(Boolean),"잔흔 후보 생성 실패");assert(new Set(choices.map(choice=>choice.id)).size===3,"잔흔 후보 중복");assert(!choices.some(choice=>choice.id==="pull"),"이미 장착한 잔흔 재등장");
