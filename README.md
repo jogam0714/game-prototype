@@ -1,4 +1,4 @@
-# Browser Game Prototype
+# AFTERLIFE
 
 정적 HTML/CSS/JavaScript로 만든 브라우저 게임 프로토타입입니다.
 

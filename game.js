@@ -1,4 +1,5 @@
 const canvas=document.getElementById("game"),ctx=canvas.getContext("2d"),message=document.getElementById("message"),W=canvas.width,H=canvas.height,keys=new Set();
+document.title="AFTERLIFE";const gameTitle=document.querySelector(".title-panel h1");if(gameTitle)gameTitle.textContent="AFTERLIFE";const stageTitle=document.querySelector("#game-root header p");if(stageTitle)stageTitle.textContent="AFTERLIFE · STAGE 01";
 const world={width:2800,camera:0};
 const player={x:220,y:400,w:46,h:76,vx:0,vy:0,facing:1,onGround:false,standingOnOneWay:false,attacking:0,attackDuration:.25,attackKind:"down",attackHit:false,moving:0,dashTimer:0,dashAttackTimer:0,dashCooldown:0,airJumps:0,doubleJumpTimer:0,dropTimer:0,hp:150,maxHp:150,mp:100,maxMp:100,gold:0,magicCooldown:0};
 let last=0,elapsed=0,introHidden=false,lastMoveDirection=0,inventoryOpen=false,selectedItem=null,gameStarted=false,rebindAction=null,paused=false,palaceActive=false,comboIndex=0,comboExpires=0,tutorialActive=false,tutorialMode=false,tutorialStep=0,tutorialTransition=0,lastSafePosition={x:170,y:430},nearTutorialDrop=null;
