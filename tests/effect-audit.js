@@ -32,6 +32,10 @@
       assert(choices.every(Boolean),"잔흔 후보 생성 실패");assert(new Set(choices.map(choice=>choice.id)).size===3,"잔흔 후보 중복");assert(!choices.some(choice=>choice.id==="pull"),"이미 장착한 잔흔 재등장");
     });
 
+    test(pass,"큰 지형 하부 통과 공간",()=>{
+      api.setStageQueue([1]);api.loadStage();const ceiling=api.stagePlatforms().find(platform=>platform.x===0&&platform.y===400);assert(ceiling,"대형 지형을 찾을 수 없음");assert(568-(ceiling.y+ceiling.h)>=api.player.h+18,"대형 지형 아래 통과 높이가 부족함");
+    });
+
     test(pass,"스테이지 클리어 보상 3개/1개 선택",()=>{
       Math.random=seededRandom(700+pass);const rewards=api.prepareRewards();assert(rewards.length===3,"보상 3개가 생성되지 않음");assert(new Set(rewards.map(reward=>reward.item.id)).size===3,"보상 후보 중복");assert(!rewards.some(reward=>reward.item.id==="gambling-king-charm"),"도박왕 부적 보상 생성");assert(api.resolveReward(rewards[1],false),"보상 획득 실패");assert(api.rewardState().resolved,"보상 선택 후 미해결 상태");assert(api.inventory.gear.some(item=>item?.id===rewards[1].item.id),"선택 장비 자동 장착 실패");
     });
