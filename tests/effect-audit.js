@@ -40,6 +40,10 @@
       api.setStageQueue([0]);api.loadStage();const golem=api.enemies.find(enemy=>enemy.type===2);assert(golem,"요격 골렘 생성 실패");api.player.x=golem.x-240;api.player.y=golem.y;golem.cooldown=0;api.step(1/60);const originX=golem.x+42,originY=golem.y+29;assertNear(Math.hypot(golem.laserAimX-originX,golem.laserAimY-originY),300,"요격 골렘 광선 사거리");
     });
 
+    test(pass,"고블린 공격 1초 준비 시간",()=>{
+      api.setStageQueue([0]);api.loadStage();const goblin=api.enemies.find(enemy=>enemy.type===1);assert(goblin,"고블린 생성 실패");api.player.x=goblin.x;api.player.y=goblin.y;api.player.hp=150;goblin.cooldown=0;api.step(1/60);assert(goblin.goblinWindup>.9&&api.player.hp===150,"고블린이 준비 시간 없이 공격함");
+    });
+
     test(pass,"스테이지 클리어 보상 3개/1개 선택",()=>{
       Math.random=seededRandom(700+pass);const rewards=api.prepareRewards();assert(rewards.length===3,"보상 3개가 생성되지 않음");assert(new Set(rewards.map(reward=>reward.item.id)).size===3,"보상 후보 중복");assert(!rewards.some(reward=>reward.item.id==="gambling-king-charm"),"도박왕 부적 보상 생성");assert(api.resolveReward(rewards[1],false),"보상 획득 실패");assert(api.rewardState().resolved,"보상 선택 후 미해결 상태");assert(api.inventory.gear.some(item=>item?.id===rewards[1].item.id),"선택 장비 자동 장착 실패");
     });
