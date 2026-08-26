@@ -27,6 +27,11 @@
       assert(api.relicSynergies.special.required.join(",")==="pull,repulsion","이중인격 조건 데이터 불일치");
     });
 
+    test(pass,"상점 방: 5종 진열·우물·구매·리롤",()=>{
+      Math.random=seededRandom(900+pass);api.setStageQueue([0]);api.loadStage();api.prepareRewards();api.player.x=2734;api.step(.02);let shop=api.shopState();assert(shop.active,"7번째 전투 맵 출구에서 상점 방으로 전환 실패");assert(shop.offers.length===5,"상점 진열 생성 실패");assert(new Set(shop.offers.map(offer=>offer.id)).size===5,"상점 장비 중복");assert(!shop.offers.some(offer=>offer.id==="gambling-king-charm"),"상점에 변환 전용 장비 등장");
+      api.player.gold=2000;api.player.hp=1;assert(api.shopUseWell(),"상점 우물 사용 실패");assertNear(api.player.hp,106,"상점 우물 회복량");const goldAfterWell=api.player.gold;assert(api.shopBuy(0),"상점 장비 구매 실패");shop=api.shopState();assert(shop.offers[0].sold,"구매 장비 판매 완료 표기 실패");assert(api.inventory.gear.some(item=>item?.id===shop.offers[0].id),"구매 장비 인벤토리 반영 실패");const beforeReroll=shop.offers.map(offer=>offer.id);assert(api.shopReroll(),"상점 리롤 실패");shop=api.shopState();assert(shop.rerolls===1,"상점 리롤 횟수 불일치");assert(shop.offers.length===5&&new Set(shop.offers.map(offer=>offer.id)).size===5,"리롤 진열 중복");assert(api.player.gold<goldAfterWell,"상점 구매·리롤 골드 차감 실패");
+    });
+
     test(pass,"잔흔 후보 중복/장착 잔흔 제외",()=>{
       api.equipRelics(["pull"]);Math.random=seededRandom(300+pass);const choices=[];for(let i=0;i<3;i++)choices.push(api.rollRelic(choices.map(choice=>choice.id)));
       assert(choices.every(Boolean),"잔흔 후보 생성 실패");assert(new Set(choices.map(choice=>choice.id)).size===3,"잔흔 후보 중복");assert(!choices.some(choice=>choice.id==="pull"),"이미 장착한 잔흔 재등장");
