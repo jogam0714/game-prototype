@@ -40,7 +40,7 @@ const RELIC_CATALOG=[
   {id:"steady",name:"차곡차곡",glyph:"+",color:"#687080",effect:"적 처치 시 모든 가하는 피해가 1% 증가합니다.",colorCode:"B"},
   {id:"flesh-armor",name:"살점 갑옷",glyph:"◈",color:"#62c987",effect:"적 처치 시 해당 적 체력의 10%만큼 보호막을 얻습니다.",colorCode:"G"},
   {id:"shield-heart",name:"보호막이 내가 된다!",glyph:"⬟",color:"#62c987",effect:"보호막 획득 시 획득량의 50%를 최대 체력으로 전환합니다.",colorCode:"G"},
-  {id:"giant",name:"거인",glyph:"▲",color:"#62c987",effect:"적 공격 시 최대 체력의 1/5만큼 추가 피해를 입힙니다.",colorCode:"G"},
+  {id:"giant",name:"거인",glyph:"▲",color:"#62c987",effect:"적 공격 시 현재 체력의 20%만큼 추가 피해를 입힙니다.",colorCode:"G"},
   {id:"vampirism",name:"흡혈",glyph:"♥",color:"#687080",effect:"적 처치 시 최대 체력의 2%를 회복합니다. 초과 회복량은 공격속도로 전환되며, 흡혈 이외의 체력 회복은 불가능합니다.",colorCode:"B"},
   {id:"legacy",name:"유산",glyph:"◐",color:"#687080",effect:"맵 이동 시 남은 MP/4만큼 최대 MP가 증가하고 MP가 전부 회복됩니다. 유산 외 MP 회복은 불가합니다.",colorCode:"B"}
 ];

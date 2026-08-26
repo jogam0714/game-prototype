@@ -202,7 +202,7 @@
     });
 
     test(pass,"거인 현재 체력 기준 추가 피해",()=>{
-      api.equipRelics(["giant"]);api.player.hp=75;const target=api.enemy({hp:1000,maxHp:1000});api.hit(target,10,false,"magic");assertNear(target.hp,975,"거인 현재 체력 추가 피해");
+      api.equipRelics(["giant"]);api.player.hp=75;const target=api.enemy({hp:1000,maxHp:1000});api.hit(target,10,false,"magic");assertNear(target.hp,975,"거인 현재 체력 추가 피해");assert(api.relics.find(relic=>relic.id==="giant").effect.includes("현재 체력의 20%"),"거인 효과 툴팁 표기 불일치");
     });
 
     test(pass,"흡혈 회복 제한/초과 공격속도",()=>{
