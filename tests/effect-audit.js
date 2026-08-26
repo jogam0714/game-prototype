@@ -36,6 +36,10 @@
       api.setStageQueue([1]);api.loadStage();const ceiling=api.stagePlatforms().find(platform=>platform.x===0&&platform.y===400);assert(ceiling,"대형 지형을 찾을 수 없음");assert(568-(ceiling.y+ceiling.h)>=api.player.h+18,"대형 지형 아래 통과 높이가 부족함");
     });
 
+    test(pass,"요격 골렘 광선은 감지 범위 끝까지 조준",()=>{
+      api.setStageQueue([0]);api.loadStage();const golem=api.enemies.find(enemy=>enemy.type===2);assert(golem,"요격 골렘 생성 실패");api.player.x=golem.x-240;api.player.y=golem.y;golem.cooldown=0;api.step(1/60);const originX=golem.x+42,originY=golem.y+29;assertNear(Math.hypot(golem.laserAimX-originX,golem.laserAimY-originY),300,"요격 골렘 광선 사거리");
+    });
+
     test(pass,"스테이지 클리어 보상 3개/1개 선택",()=>{
       Math.random=seededRandom(700+pass);const rewards=api.prepareRewards();assert(rewards.length===3,"보상 3개가 생성되지 않음");assert(new Set(rewards.map(reward=>reward.item.id)).size===3,"보상 후보 중복");assert(!rewards.some(reward=>reward.item.id==="gambling-king-charm"),"도박왕 부적 보상 생성");assert(api.resolveReward(rewards[1],false),"보상 획득 실패");assert(api.rewardState().resolved,"보상 선택 후 미해결 상태");assert(api.inventory.gear.some(item=>item?.id===rewards[1].item.id),"선택 장비 자동 장착 실패");
     });
@@ -103,7 +107,7 @@
     });
 
     test(pass,"첫 석판 2개 선택/두 번째 사망 복귀",()=>{
-      api.beginFirstAltar();api.openChoices();let state=api.relicChoiceState();assert(state.remaining===2&&state.choices.length===3,"첫 석판 후보 또는 선택 횟수 오류");api.selectChoice(0);state=api.relicChoiceState();assert(state.remaining===1&&state.choices.length===2&&api.inventory.equipped.filter(Boolean).length===1,"첫 번째 잔흔 선택 후 상태 오류");api.selectChoice(0);assert(api.inventory.equipped.filter(Boolean).length===2,"첫 석판에서 두 번째 잔흔 장착 실패");
+      api.beginFirstAltar();api.openChoices();let state=api.relicChoiceState(),firstChoices=[...state.choices];assert(state.remaining===2&&state.choices.length===3,"첫 석판 후보 또는 선택 횟수 오류");api.selectChoice(0);state=api.relicChoiceState();assert(state.remaining===1&&state.choices.length===3&&api.inventory.equipped.filter(Boolean).length===1,"첫 번째 잔흔 선택 후 상태 오류");assert(state.choices.every(choice=>!firstChoices.includes(choice))&&state.rerolled.every(value=>!value),"첫 선택 후 후보 전체 리롤 또는 리롤 충전 실패");api.selectChoice(0);assert(api.inventory.equipped.filter(Boolean).length===2,"첫 석판에서 두 번째 잔흔 장착 실패");
       api.player.hp=1;api.damagePlayer(5);assertNear(api.player.hp,api.player.maxHp*.6,"첫 사망 부활 체력");api.setElapsed(1);api.player.hp=1;api.damagePlayer(5);state=api.relicChoiceState();assert(state.active&&state.remaining===2&&!state.firstComplete,"두 번째 사망 후 첫 석판 복귀 실패");assert(api.inventory.equipped.every(item=>!item)&&api.inventory.gear.every(item=>!item),"두 번째 사망 후 런 장비 초기화 실패");
     });
 
