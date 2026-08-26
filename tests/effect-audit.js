@@ -48,6 +48,10 @@
       api.player.x=100;api.player.y=492;const first=api.enemy({x:150,y:492,hp:1000,maxHp:1000}),second=api.enemy({x:180,y:492,hp:1000,maxHp:1000});api.beginAttack("down");api.step(.12);api.step(.01);assertNear(first.hp,975,"첫 번째 적 기본 피해");assertNear(second.hp,975,"두 번째 적 기본 공격 관통");
     });
 
+    test(pass,"돌진 공격 이동 관통",()=>{
+      api.player.x=100;api.player.y=492;const first=api.enemy({x:180,y:492,hp:1000,maxHp:1000}),second=api.enemy({x:330,y:492,hp:1000,maxHp:1000});api.beginAttack("dash");api.step(.07);api.step(.03);api.step(.03);api.step(.02);assertNear(first.hp,975,"돌진 첫 번째 적 피해");assertNear(second.hp,975,"돌진 두 번째 적 관통 피해");
+    });
+
     test(pass,"스테이지 클리어 보상 3개/1개 선택",()=>{
       Math.random=seededRandom(700+pass);const rewards=api.prepareRewards();assert(rewards.length===3,"보상 3개가 생성되지 않음");assert(new Set(rewards.map(reward=>reward.item.id)).size===3,"보상 후보 중복");assert(!rewards.some(reward=>reward.item.id==="gambling-king-charm"),"도박왕 부적 보상 생성");assert(api.resolveReward(rewards[1],false),"보상 획득 실패");assert(api.rewardState().resolved,"보상 선택 후 미해결 상태");assert(api.inventory.gear.some(item=>item?.id===rewards[1].item.id),"선택 장비 자동 장착 실패");
     });
