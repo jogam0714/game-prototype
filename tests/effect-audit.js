@@ -120,7 +120,7 @@
 
     test(pass,"첫 석판 2개 선택/두 번째 사망 복귀",()=>{
       api.beginFirstAltar();api.openChoices();let state=api.relicChoiceState(),firstChoices=[...state.choices];assert(state.remaining===2&&state.choices.length===3,"첫 석판 후보 또는 선택 횟수 오류");api.selectChoice(0);state=api.relicChoiceState();assert(state.remaining===1&&state.choices.length===3&&api.inventory.equipped.filter(Boolean).length===1,"첫 번째 잔흔 선택 후 상태 오류");assert(state.choices.every(choice=>!firstChoices.includes(choice))&&state.rerolled.every(value=>!value),"첫 선택 후 후보 전체 리롤 또는 리롤 충전 실패");api.selectChoice(0);assert(api.inventory.equipped.filter(Boolean).length===2,"첫 석판에서 두 번째 잔흔 장착 실패");
-      api.player.x=333;api.player.y=421;api.player.hp=1;api.damagePlayer(5);assertNear(api.player.hp,api.player.maxHp*.6,"첫 사망 부활 체력");assert(api.player.x===333&&api.player.y===421,"첫 사망 부활 위치가 변경됨");api.setElapsed(1);api.player.hp=1;api.damagePlayer(5);state=api.relicChoiceState();assert(state.active&&state.remaining===2&&!state.firstComplete,"두 번째 사망 후 첫 석판 복귀 실패");assert(api.inventory.equipped.every(item=>!item)&&api.inventory.gear.every(item=>!item),"두 번째 사망 후 런 장비 초기화 실패");
+      api.player.x=333;api.player.y=421;api.player.hp=1;api.damagePlayer(5);assertNear(api.player.hp,api.player.maxHp*.6,"첫 사망 부활 체력");assert(api.player.x===333&&api.player.y===421,"첫 사망 부활 위치가 변경됨");assert(api.runtimeSnapshot().playerReviveEffectUntil>api.getElapsed(),"부활 연출 시작 실패");api.setElapsed(1);api.player.hp=1;api.damagePlayer(5);state=api.relicChoiceState();assert(state.active&&state.remaining===2&&!state.firstComplete,"두 번째 사망 후 첫 석판 복귀 실패");assert(api.inventory.equipped.every(item=>!item)&&api.inventory.gear.every(item=>!item),"두 번째 사망 후 런 장비 초기화 실패");
     });
 
     test(pass,"무서운 이야기 처치 속박",()=>{
